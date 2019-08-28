@@ -1,0 +1,15 @@
+CREATE TABLE `star_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name_cn` varchar(128) DEFAULT NULL,
+  `name_en` varchar(128) DEFAULT NULL,
+  `name_alis` varchar(128) DEFAULT NULL,
+  `nationality` varchar(128) DEFAULT NULL,
+  `birth_addr` varchar(128) DEFAULT NULL,
+  `birth_date` varchar(128) DEFAULT NULL,
+  `vocation` varchar(128) DEFAULT NULL,
+  `constellation` longtext,
+  `graduation` varchar(128) DEFAULT NULL,
+  `language` varchar(128) DEFAULT NULL,
+  `opus` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
