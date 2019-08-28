@@ -2,6 +2,8 @@ const agent = require('superagent');
 const cheerio = require('cheerio');
 const xmlreader = require("xmlreader");
 const mysql = require('mysql');
+const async = require('async')
+
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -9,11 +11,15 @@ var connection = mysql.createConnection({
     port: '3306',
     database: 'test'
 });
+
 connection.connect();
+
 var addSql = 'INSERT INTO star_info(name_cn,name_en,name_alis,nationality,birth_addr,birth_date,vocation,constellation,graduation,language,opus,broker,emi) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+
 //男歌手列表
 let sex = 2//0表示男歌手，1表示女歌手，2表示组合
 let number = 0;
+
 for (let i = 1; i <= 5; i++) {
     agent.get(`https://u.y.qq.com/cgi-bin/musicu.fcg`)
         .query({
@@ -60,7 +66,8 @@ for (let i = 1; i <= 5; i++) {
 }
 // connection.end();
 function get_star_info(singermid) {
-    agent
+    return new Promise(function(resolve, reject){
+        agent
         .get(`https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_singer_desc.fcg`)
         .set('Referer', 'https://c.y.qq.com/xhr_proxy_utf8.html')
         .query({
@@ -127,15 +134,18 @@ function get_star_info(singermid) {
                             break;
                     }
                 }
-                //console.log(arr)
-                var addSqlParams = [arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7], arr[8], arr[9], arr[10],arr[11],arr[12]];
-                connection.query(addSql, addSqlParams, function (err, result) {
-                    if (err) {
-                        //console.log('[INSERT ERROR] - ', err.message);
-                        return;
-                    }
-                });
+                var addSqlParams = [arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7], arr[8], arr[9], arr[10], arr[11], arr[12]];
+                //asyncAwaitFn(addSql,addSqlParams)
+                resolve(addSqlParams)
             });
         })
+    })
+}
+function asyncAwaitFn(addSql,addSqlParams) {
+    connection.query(addSql, addSqlParams, function (err, result) {
+        if (err) {
+           return 
+        }
+    });
 }
 
