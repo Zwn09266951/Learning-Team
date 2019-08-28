@@ -10,7 +10,7 @@ var connection = mysql.createConnection({
     database: 'test'
 });
 connection.connect();
-var addSql = 'INSERT INTO star_info(name_cn,name_en,name_alis,nationality,birth_addr,birth_date,vocation,constellation,graduation,language,opus) VALUES(?,?,?,?,?,?,?,?,?,?,?)';
+var addSql = 'INSERT INTO star_info(name_cn,name_en,name_alis,nationality,birth_addr,birth_date,vocation,constellation,graduation,language,opus,broker,emi) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
 //男歌手列表
 let sex = 2//0表示男歌手，1表示女歌手，2表示组合
 let number = 0;
@@ -119,10 +119,16 @@ function get_star_info(singermid) {
                         case '代表作品':
                             arr[10] = arrInfo[k].value.text()
                             break;
+                        case '经纪公司':
+                            arr[11] = arrInfo[k].value.text()
+                            break;
+                        case '唱片公司':
+                            arr[12] = arrInfo[k].value.text()
+                            break;
                     }
                 }
                 //console.log(arr)
-                var addSqlParams = [arr[0], arr[1], arr[2], arr[3], arr[4], arr[5],arr[6],arr[7],arr[8],arr[9],arr[10]];
+                var addSqlParams = [arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7], arr[8], arr[9], arr[10],arr[11],arr[12]];
                 connection.query(addSql, addSqlParams, function (err, result) {
                     if (err) {
                         //console.log('[INSERT ERROR] - ', err.message);

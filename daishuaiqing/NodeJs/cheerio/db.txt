@@ -11,5 +11,7 @@ CREATE TABLE `star_info` (
   `graduation` varchar(128) DEFAULT NULL,
   `language` varchar(128) DEFAULT NULL,
   `opus` longtext,
+  `broker` varchar(128) DEFAULT NULL COMMENT '经纪公司',
+  `emi` varchar(128) DEFAULT NULL COMMENT '唱片公司',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
