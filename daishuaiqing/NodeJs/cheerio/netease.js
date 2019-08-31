@@ -7,14 +7,14 @@ var connection = mysql.createConnection({
     user: 'root',
     password: '123456',
     port: '3306',
-    database: 'test'
+    database: 'star'
 });
 
 connection.connect();
 
-var addSql = 'INSERT INTO star_info(name_cn,name_en,name_alis,nationality,birth_addr,birth_date,vocation,constellation,graduation,language,opus,broker,emi) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+var addSql = 'INSERT INTO star_cn_info(name_cn,name_en,name_alis,nationality,birth_addr,birth_date,vocation,constellation,graduation,language,opus,broker,emi) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
 //0表示男歌手，1表示女歌手，2表示组合
-exec(1,1,20)
+exec(1,1,42)
 
 async function exec(sex, startPage, endPage){
     let starList = await get_start_batch(sex, startPage, endPage)
@@ -63,7 +63,7 @@ function get_star_list(sex, page) {
                     "module":"Music.SingerListServer",
                     "method":"get_singer_list",
                     "param":{
-                        "area":-100,
+                        "area":2,
                         "sex":-100,
                         "genre":-100,
                         "index":-100,
